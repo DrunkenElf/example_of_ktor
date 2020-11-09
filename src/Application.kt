@@ -17,17 +17,17 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import io.ktor.client.features.logging.*
 import io.ktor.http.content.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 import org.apache.http.HttpStatus
 import org.slf4j.event.Level
 import java.io.File
 
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 val staticfilesDir = File("resources/static")
 
-@Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.main() {
+    install(DefaultHeaders)
     install(ContentNegotiation) {
         gson {
         }
@@ -35,22 +35,7 @@ fun Application.module(testing: Boolean = false) {
     install(CallLogging){
         level = Level.INFO
     }
-
-
-    val client = HttpClient(Apache) {
-        install(JsonFeature) {
-            serializer = GsonSerializer()
-        }
-        install(Logging) {
-            level = LogLevel.HEADERS
-        }
-    }
-    runBlocking {
-        // Sample for making a HTTP Client request
-
-    }
-
-    routing {
+    install(Routing){
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
@@ -96,6 +81,7 @@ fun Application.module(testing: Boolean = false) {
             }
         }
     }
+
 }
 
 data class JsonSampleClass(val hello: String)
