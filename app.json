@@ -1,0 +1,6 @@
+{
+  "name": "First ktor server",
+  "description": "Server to check buffering mp3 files",
+  "image": "heroku/java",
+  "addons": [ ]
+}
