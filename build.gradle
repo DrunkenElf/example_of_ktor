@@ -24,7 +24,6 @@ shadowJar {
     manifest {
         attributes 'Main-Class': mainClassName
     }
-    minimize()
 }
 
 sourceCompatibility = 1.8

@@ -75,11 +75,11 @@ fun Application.main() {
             call.respondMP3(call.parameters["name"]!!)
         }
 
-        static {
+       /* static {
             route("static"){
                 files(File("resources/static"))
             }
-        }
+        }*/
     }
 
 }
